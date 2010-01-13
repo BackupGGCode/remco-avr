@@ -26,7 +26,7 @@ AVRDUDE = avrdude $(PROGRAMMER) -p $(DEVICE)
 COMPILE = avr-gcc -Wall -Os -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 
 # symbolic targets:
-all:	main.hex
+all:	main.hex eeprom.hex
 
 .c.o:
 	$(COMPILE) -c $< -o $@
@@ -43,6 +43,7 @@ all:	main.hex
 
 flash:	all
 	$(AVRDUDE) -U flash:w:main.hex:i
+	$(AVRDUDE) -U eeprom:w:eeprom.hex:i
 
 fuse:
 	$(AVRDUDE) $(FUSES)
@@ -55,7 +56,7 @@ load: all
 	bootloadHID main.hex
 
 clean:
-	rm -f main.hex main.elf $(OBJECTS)
+	rm -f main.hex main.elf eeprom.hex $(OBJECTS)
 
 # file targets:
 main.elf: $(OBJECTS)
@@ -64,8 +65,10 @@ main.elf: $(OBJECTS)
 main.hex: main.elf
 	rm -f main.hex
 	avr-objcopy -j .text -j .data -O ihex main.elf main.hex
-# If you have an EEPROM section, you must also create a hex file for the
-# EEPROM and add it to the "flash" target.
+
+eeprom.hex: eeprom.txt
+	rm -f eeprom.hex
+	avr-objcopy -I binary -O ihex eeprom.txt eeprom.hex
 
 # Targets for code debugging and analysis:
 disasm:	main.elf
@@ -73,3 +76,4 @@ disasm:	main.elf
 
 cpp:
 	$(COMPILE) -E main.c
+
