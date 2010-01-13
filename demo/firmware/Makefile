@@ -21,7 +21,6 @@ OBJECTS    = main.o
 FUSES      = -U hfuse:w:0xdf:m -U lfuse:w:0x62:m
 
 # Tune the lines below only if you know what you are doing:
-
 AVRDUDE = avrdude $(PROGRAMMER) -p $(DEVICE)
 COMPILE = avr-gcc -Wall -Os -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 
@@ -42,8 +41,7 @@ all:	main.hex eeprom.hex
 	$(COMPILE) -S $< -o $@
 
 flash:	all
-	$(AVRDUDE) -U flash:w:main.hex:i
-	$(AVRDUDE) -U eeprom:w:eeprom.hex:i
+	$(AVRDUDE) -U flash:w:main.hex:i -U eeprom:w:eeprom.hex:i
 
 fuse:
 	$(AVRDUDE) $(FUSES)
