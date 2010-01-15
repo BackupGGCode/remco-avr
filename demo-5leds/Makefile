@@ -16,7 +16,8 @@
 
 DEVICE     = attiny85
 CLOCK      = 8000000
-PROGRAMMER = -c avrisp -P /dev/tty.usbserial-A9007Wu5
+#PROGRAMMER = -c avrisp -P /dev/tty.usbserial-A9007Wu5
+PROGRAMMER = -c usbasp -P usb
 OBJECTS    = main.o
 FUSES      = -U hfuse:w:0xdf:m -U lfuse:w:0x62:m
 
