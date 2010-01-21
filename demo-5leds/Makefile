@@ -26,7 +26,7 @@ AVRDUDE = avrdude $(PROGRAMMER) -p $(DEVICE)
 COMPILE = avr-gcc -Wall -Os -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 
 # symbolic targets:
-all:	main.hex eeprom.hex
+all:	main.hex
 
 .c.o:
 	$(COMPILE) -c $< -o $@
@@ -42,7 +42,10 @@ all:	main.hex eeprom.hex
 	$(COMPILE) -S $< -o $@
 
 flash:	all
-	$(AVRDUDE) -U flash:w:main.hex:i -U eeprom:w:eeprom.hex:i
+	$(AVRDUDE) -U flash:w:main.hex:i 
+
+eeprom: eeprom.hex 
+	$(AVRDUDE) -U eeprom:w:eeprom.hex:i
 
 fuse:
 	$(AVRDUDE) $(FUSES)
