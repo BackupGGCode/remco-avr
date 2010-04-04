@@ -6,7 +6,7 @@
  for the pin connections
  
  For other LED cathode column matrixes, you should only need to change 
- the pin numbers in the row[] and column[] arrays
+ the pin numbers in the row[] and col[] arrays
  
  rows are the anodes
  cols are the cathodes
@@ -98,7 +98,6 @@
     {0, 0, 0, 1, 1, 0, 0, 0}  \
 }
 
-
 // 2-dimensional array of row pin numbers:
 const int row[8] = { 2, 7, 19, 5, 13, 18, 12, 16 };
 
@@ -137,20 +136,17 @@ void setup() {
     for (int y = 0; y < 8; y++) {
       pixels[x][y] = HIGH;
     }
-  }
-  
+  }  
 }
 
 void loop() {
-
   pattern = ++pattern % numPatterns;
   setPattern(pattern);
   
   // show pattern 100 times before moving on to next.
   for (int show = 0; show < 100; show++) {
     showpattern();
-  }
-  
+  }  
 }
 
 void showpattern() {
@@ -167,8 +163,8 @@ void showpattern() {
       digitalWrite(row[x], LOW);
       digitalWrite(col[y], HIGH);
       delayMicroseconds(100);
-      }
     }
+  }
 }
   
 void setPattern(int pattern) {
