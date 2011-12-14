@@ -1,3 +1,5 @@
+
+
 //Pin connected to ST_CP of 74HC595
 int latchPin = 8;
 //Pin connected to SH_CP of 74HC595
@@ -20,4 +22,9 @@ void loop() {
     //ground latchPin and hold low for as long as you are transmitting
     digitalWrite(latchPin, LOW);
     shiftOut(dataPin, clockPin, MSBFIRST, j);   
-    //return the latch pin high to signal chip
+    //return the latch pin high to signal chip that it 
+    //no longer needs to listen for information
+    digitalWrite(latchPin, HIGH);
+    delay(1000);
+  }
+}
