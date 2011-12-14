@@ -7,8 +7,7 @@ int clockPin = 12;
 int dataPin = 11;
 int potPin = 2;    // select the input pin for the potentiometer 
 
-// common anode, count bits for leds that needs to be off (including decimal po
-int).
+// common anode, count bits for leds that needs to be off (including decimal point).
 // A = 1, B = 2, C = 4, D = 8, E = 16, F = 32, G = 64, DP = 128
 int ledset[] = { 192, 249, 164, 176, 153, 146, 130, 248, 128, 144 };
 int ones;
